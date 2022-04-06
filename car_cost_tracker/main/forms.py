@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import TextInput
 
-
+from car_cost_tracker.main.models import Expense
 
 
 class CreateExpenseForm(forms.ModelForm):
@@ -19,6 +19,7 @@ class CreateExpenseForm(forms.ModelForm):
         return expense
 
     class Meta:
+        model = Expense
         fields = ('part', 'type', 'description',)
         widgets = {
                 'part': forms.TextInput(

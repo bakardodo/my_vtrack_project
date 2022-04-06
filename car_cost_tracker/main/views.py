@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 
 # Create your views here.
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView, CreateView, DetailView
+from django.views.generic import TemplateView, CreateView, DetailView, ListView
 
 from car_cost_tracker.accounts.models import CarCostTrackerUser
 from car_cost_tracker.main.forms import CreateExpenseForm
+from car_cost_tracker.main.models import Expense
 
 
 class HomeView(TemplateView):
@@ -21,9 +22,10 @@ class HomeView(TemplateView):
             return redirect('dashboard')
         return super().dispatch(request, *args, **kwargs)
 
-class DashboardView(TemplateView):
+class DashboardView(ListView):
     template_name = 'main/dashboard.html'
-
+    model = Expense
+    context_object_name = 'expenses'
 
 
 class CreateCostView(CreateView):
@@ -36,5 +38,12 @@ class CreateCostView(CreateView):
         kwargs['user'] = self.request.user
         return kwargs
 
-class CreateExpenseDetailView(DetailView):
+class CreateCostDetailView(DetailView):
     model = Expense
+    template_name = 'main/dashboard.html'
+    context_object_name = 'expenses'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        return context

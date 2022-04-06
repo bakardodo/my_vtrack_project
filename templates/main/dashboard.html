@@ -1,28 +1,46 @@
 {% extends 'base.html' %}
 {% block page_content %}
     {% if request.user.is_authenticated %}
-        {% if costs %}
-            <h1 class='text-center' style="background-color: #efce2e">All Pet Photos</h1>
-            <div class="card" style="width: 18rem; margin: 10px">
-                <div class="card-body">
-                    <div style="display: flex; flex-direction: row">
-                        <h5 class="card-title">Mercedes A-Class</h5>
-                        {#  Colored cirlce:#}
-                        <div style="
-          background: red;
-          width: 20px;
-          height: 20px;
-          margin-left: 10px;
-          border-radius: 50%;
-        "></div>
-                    </div>
-                    <p class="card-text">This is a Mercedess A-Class from autobild.de website.</p>
-                    <a href="/command/1/color" class="btn btn-primary">Change Color</a>
-                    <a href="/command/1/delete" class="btn btn-primary">Delete</a>
-                </div>
+        {% if expenses %}
+            <h1 class='text-center' style="color: #efce2e">My expenses</h1>
+            <div class="col-md-12 text-center">
+                <a href="{% url 'create cost' %}" style="color: #efce2e"
+                   class="btn btn-lg btn-secondary row align-self-baseline">Create expense</a>
             </div>
+            <div class="container mb-5">
+            <div class="row mb-5">
+                {% for expense in expenses %}
+                        <div class="col d-flex justify-content-center">
+                        <div class="card" style="width: 18rem; margin: 10px">
+                            <img src="https://i.auto-bild.de/mdb/extra_large/62/aklasse-bb5.png" class="card-img-top">
+                            <div class="card-body">
+                                <div style="display: flex; flex-direction: row">
+                                    <h5 class="card-title">Mercedes A-Class</h5>
+                                    {#  Colored cirlce:#}
+                                    <div style="
+                                      background: red;
+                                      width: 20px;
+                                      height: 20px;
+                                      margin-left: 10px;
+                                      border-radius: 50%;
+                                        "></div>
+                                </div>
+                                <p class="card-text">This is a Mercedess A-Class from autobild.de website.</p>
+                                <div class="text-center">
+                                    <a href="/command/1/color" class="btn btn-primary" style="width: 5rem">Edit</a>
+                                    <a href="/command/1/delete" class="btn btn-primary" style="width: 5rem">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 
+
+
+
+
+                {% endfor %}
+            </div>
         {% else %}
 
             <!-- If there are NO pet photos -->
@@ -40,3 +58,4 @@
 
 
 {% endblock %}
+</div>
