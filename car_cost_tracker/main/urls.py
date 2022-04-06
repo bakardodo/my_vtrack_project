@@ -1,0 +1,11 @@
+from django.urls import path
+
+from car_cost_tracker.main.views import HomeView, DashboardView, CreateCostView
+
+urlpatterns = (
+    path('', HomeView.as_view(), name='index view'),
+    path('dashboard/', DashboardView.as_view(), name='dashboard'),
+    path('create/cost/', CreateCostView.as_view(), name='create cost'),
+
+)
+
