@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block page_content %}
+<body style="background-image: url('{% static "aa.jpg" %}')">
     {% if request.user.is_authenticated %}
-        {% if expenses %}
-            <h1 class='text-center' style="color: #efce2e">My expenses</h1>
+        {% if expenses.car %}
+            <h1 class='text-center' style="color: #ffffff">Your expenses</h1>
             <div class="col-md-12 text-center">
-                <a href="{% url 'create cost' %}" style="color: #efce2e"
+                <a href="{% url 'create cost' %}" style="color: #ffffff"
                    class="btn btn-lg btn-secondary row align-self-baseline">Create expense</a>
             </div>
             <div class="container mb-5">
@@ -12,21 +14,26 @@
                 {% for expense in expenses %}
                         <div class="col d-flex justify-content-center">
                         <div class="card" style="width: 18rem; margin: 10px">
-                            <img src="https://i.auto-bild.de/mdb/extra_large/62/aklasse-bb5.png" class="card-img-top">
-                            <div class="card-body">
+                            {% if expense.car.photo %}
+                                <img src="{{ expense.car.photo }}" class="card-img-top">
+                            {% endif %}
+                            <div class="card-body" style="background-color: gray; ," >
                                 <div style="display: flex; flex-direction: row">
-                                    <h5 class="card-title">Mercedes A-Class</h5>
-                                    {#  Colored cirlce:#}
-                                    <div style="
-                                      background: red;
-                                      width: 20px;
-                                      height: 20px;
-                                      margin-left: 10px;
-                                      border-radius: 50%;
-                                        "></div>
+                                    <h4 class="card-title">
+                                        {{ expense.car.make }}
+                                    </h4>
                                 </div>
-                                <p class="card-text">This is a Mercedess A-Class from autobild.de website.</p>
-                                <div class="text-center">
+                                <div class="text-center" style="font-style: italic;font-size: 22px" >
+                                    {{ expense.type }}:
+                                    <p class="card-text">{{ expense.part }}</p>
+                                    {% if expense.description %}
+                                        Description:
+                                        <p class="card-text">{{ expense.description }}</p>
+                                    {% endif %}
+                                    Date of purchase:
+                                    <p class="card-text">{{ expense.date_of_purchase }}</p>
+                                </div>
+                                <div class="text-center py-3 ">
                                     <a href="/command/1/color" class="btn btn-primary" style="width: 5rem">Edit</a>
                                     <a href="/command/1/delete" class="btn btn-primary" style="width: 5rem">Delete</a>
                                 </div>
@@ -56,6 +63,6 @@
         {% endif %}
     {% endif %}
 
-
-{% endblock %}
 </div>
+</body>
+{% endblock %}

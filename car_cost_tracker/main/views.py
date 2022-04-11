@@ -5,8 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, DetailView, ListView
 
 from car_cost_tracker.accounts.models import CarCostTrackerUser
-from car_cost_tracker.main.forms import CreateExpenseForm
-from car_cost_tracker.main.models import Expense
+from car_cost_tracker.main.forms import CreateExpenseForm, CreateVehicleForm
+from car_cost_tracker.main.models import Expense, Car
 
 
 class HomeView(TemplateView):
@@ -43,7 +43,30 @@ class CreateCostDetailView(DetailView):
     template_name = 'main/dashboard.html'
     context_object_name = 'expenses'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #
+    #     return context
 
-        return context
+class CreateCarView(CreateView):
+    template_name = 'main/create-car.html'
+    form_class = CreateVehicleForm
+    success_url = reverse_lazy('detail car')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+class CreateCarDetailView(ListView):
+    model = Car
+    template_name = 'main/details-car.html'
+    context_object_name = 'cars'
+
+
+
+    #
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #
+    #     return context
