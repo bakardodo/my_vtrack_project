@@ -5,14 +5,15 @@ from car_cost_tracker.main.models import Expense, Car
 
 
 class CreateExpenseForm(forms.ModelForm):
+    car = forms.ModelChoiceField(queryset=None)  # we make choicefield for all car objects
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
+        self.fields['car'].queryset = Car.objects.all()  # we make queryset and fill it with all car objects
 
     def save(self, commit=True):
         expense = super().save(commit=False)
-
         expense.user = self.user
         if commit:
             expense.save()
@@ -20,14 +21,14 @@ class CreateExpenseForm(forms.ModelForm):
 
     class Meta:
         model = Expense
-        fields = ('part', 'type', 'description', 'your_cars')
+        fields = ('part', 'type', 'description', 'car')
         widgets = {
                 'part': forms.TextInput(
                     attrs={
                         'placeholder': 'Enter part name',
                     }
                 ),
-            }
+        }
 
 class CreateVehicleForm(forms.ModelForm):
 
