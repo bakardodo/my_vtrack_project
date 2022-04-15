@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
 {% block page_content %} 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
+<body style="background-image: url('{% static "moswitch.jpg" %}')">
+    <form method="post" action="{% url 'edit profile' profile.pk %}" enctype="multipart/form-data">
+        <div class="container mb-5 py-3">
+            <div class="row mb-5">
+                <div class="card" style="width: 25rem; margin: 10px;background-color: gray">
+                    <div class="card-body" style="background-color: gray;">
+                {% csrf_token %}
+                {{ form|crispy }}
+                 <div class="text-center py-3">
+                     <button class="btn btn-primary mt-2" style="width: 5rem" type="submit">Edit</button>
+                 </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 </body>
-</html>
-
 {% endblock %}

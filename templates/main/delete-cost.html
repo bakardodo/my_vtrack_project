@@ -1,14 +1,45 @@
 {% extends 'base.html' %}
-{% block page_content %} 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load crispy_forms_filters %}
+{% load static %}
+{% block page_content %}
+    <body style="background-image: url('{% static "3588944.jpg" %}')">
+    <div class="container mb-5 py-3">
+        <div class="row mb-5">
+            <div class="card" style="width: 22rem; margin: 10px;background-color: gray ">
+                <form method="post" action="{% url 'delete expense' expense.pk %}">
+                    {% if expense.car.photo %}
+                        <img src="{{ expense.car.photo }}" class="card-img-top">
 
-</body>
-</html>
+                    {% endif %}
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="card-body" style="background-color: gray;">
+                        <div class="text-center">
+                            <h3 class="text-center" style="font-style: italic;color: brown">
+                                Delete this expense?
+
+                            </h3>
+                            <h4 class="card-title">
+                                {{ expense.car.make }}
+                            </h4>
+                        </div>
+                        <div class="text-center" style="font-style: italic;font-size: 22px">
+                            {{ expense.type }}:
+                            <p class="card-text">{{ expense.part }}</p>
+                            {% if expense.description %}
+                                Description:
+                                <p class="card-text">{{ expense.description }}</p>
+                            {% endif %}
+                            Date of purchase:
+                            <p class="card-text">{{ expense.date_of_purchase }}</p>
+                        </div>
+                        <div class="text-center py-3">
+                            <button class="btn btn-primary mt-2" type="submit">Delete</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </body>
 
 {% endblock %}

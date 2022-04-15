@@ -30,23 +30,21 @@
 </head>
 
 <body style="background-image: url('{% static "3588944.jpg" %}')">
-    <div class="d-flex" >
-    <div class="d-inline p-2 w-50">
-        <h1 class="text-center">Add part info</h1>
-        <div class="row">
-            <div class="col-lg-3"></div>
-            <div class="col-lg-6">
-                <form method="post" >
-
+    <div class="container mb-5 py-3">
+        <div class="row mb-5">
+            <div class="card" style="width: 20rem; margin: 10px;background-color: gray " >
+                <h4 class="text-center" style="font-style: italic">
+                    Create your expense
+                </h4>
+                <form method="post"  enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}
-
-                    <button class="btn btn-primary mt-2" type="submit">Create</button>
+                    <div class="text-center py-3" >
+                        <button class="btn btn-primary mt-2" type="submit">Create</button>
+                    </div>
                 </form>
             </div>
-            <div class="col-lg-3"></div>
         </div>
-    </div>
     </div>
 </body>
 {% endblock %}

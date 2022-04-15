@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
-{% block page_content %} 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% load static %}
+{% block page_content %}
+<body style="background-image: url('{% static "moswitch.jpg" %}')">
+<div class="container mb-5 py-3">
+            <div class="row mb-5">
+               <div class="col d-flex justify-content-center">
+                    <div class="card" style="width: 25rem; margin: 10px">
+                    <form method="post" action="{% url 'profile delete' profile.id %}">
+                        <div class="card-body" style="background-color: gray;">
+                        {% if profile.picture %}
+                            <img src="{{ profile.picture }}" class="card-img-top">
+                        {% endif %}
 
+                        </div>
+                    </form>
+                    </div>
+               </div>
+            </div>
+</div>
 </body>
-</html>
-
 {% endblock %}

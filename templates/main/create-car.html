@@ -5,7 +5,10 @@
     <body style="background-image: url('{% static "carjpg.jpg" %}')">
     <div class="container mb-5 py-3">
         <div class="row mb-5">
-            <div class="card" style="width: 20rem; margin: 10px;background-color: #36a6a2 " >
+            <div class="card" style="width: 20rem; margin: 10px;background-color: gray " >
+                <h4 class="text-center" style="font-style: italic">
+                    Create your vehicle
+                </h4>
                 <form method="post"  enctype="multipart/form-data">
                     {% csrf_token %}
                     {{ form|crispy }}

@@ -37,8 +37,8 @@
                                 <p class="card-text">{{ car.transmission }}</p>
                             </div>
                             <div class="text-center py-3">
-                                <a href="/command/1/color" class="btn btn-primary" style="width: 5rem">Edit</a>
-                                <a href="/command/1/delete" class="btn btn-primary" style="width: 5rem">Delete</a>
+                                <a href="{% url 'edit car' car.pk %}" class="btn btn-primary" style="width: 5rem">Edit</a>
+                                <a href="{% url 'delete car' car.pk %}" class="btn btn-primary" style="width: 5rem">Delete</a>
                             </div>
                         </div>
                     </div>

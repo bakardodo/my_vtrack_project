@@ -39,6 +39,11 @@ class Expense(models.Model):
         blank=True,
     )
 
+    price = models.FloatField(
+        null=True,
+        blank=True,
+    )
+
     description = models.TextField(
         null=True,
         blank=True,

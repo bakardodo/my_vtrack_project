@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block page_content %}
+    <body style="background-image: url('{% static 'old.jpg' %}')">
+    <div class="container mb-5 py-3">
+        <div class="row mb-5">
+            <div class="card" style="width: 20rem; margin: 10px;background-color: gray" >
+                <h4 class="text-center" style="font-style: italic">
+                    Edit your car
+                </h4>
+                <form method="post"  enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="text-center py-3" >
+                        <button class="btn btn-primary mt-2" type="submit">Edit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-</body>
-</html>
+    </body>
+
+{% endblock %}

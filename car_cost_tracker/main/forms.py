@@ -4,13 +4,32 @@ from django.forms import TextInput
 from car_cost_tracker.main.models import Expense, Car
 
 
+# class DeteleExpenseForm(forms.ModelForm):
+#
+#     def save(self, commit=True):
+#         self.instance.delete()
+#         return self.instance
+#
+#     class Meta:
+#         model = Expense
+#         fields = ()
+class CreateEditExpenseForm(forms.ModelForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+        self.fields['car'].queryset = Car.objects.filter(user=user)
+
+    class Meta:
+        model = Expense
+        exclude = ('user', 'photo',)
+
 class CreateExpenseForm(forms.ModelForm):
     car = forms.ModelChoiceField(queryset=None)  # we make choicefield for all car objects
 
     def __init__(self, user, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.user = user
-        self.fields['car'].queryset = Car.objects.all()  # we make queryset and fill it with all car objects
+        self.fields['car'].queryset = Car.objects.filter(user=user)  # we make queryset and fill it with all car objects
 
     def save(self, commit=True):
         expense = super().save(commit=False)
@@ -21,13 +40,18 @@ class CreateExpenseForm(forms.ModelForm):
 
     class Meta:
         model = Expense
-        fields = ('part', 'type', 'description', 'car')
+        fields = ('part', 'type', 'description', 'price', 'car')
         widgets = {
                 'part': forms.TextInput(
                     attrs={
                         'placeholder': 'Enter part name',
                     }
                 ),
+                'description': forms.TextInput(
+                    attrs={
+                        'placeholder': 'Enter your description',
+                }
+            ),
         }
 
 class CreateVehicleForm(forms.ModelForm):
@@ -47,3 +71,9 @@ class CreateVehicleForm(forms.ModelForm):
     class Meta:
         model = Car
         fields = ('make', 'horse_power', 'cubic', 'vehicle_condition', 'mileage', 'year', 'fuel_type', 'transmission', 'photo')
+
+class CreateCarEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Car
+        exclude = ('user',)

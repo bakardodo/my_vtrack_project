@@ -18,6 +18,7 @@ class CarCostTrackerUser(AbstractBaseUser, PermissionsMixin):
         unique=True
     )
 
+
     data_joined = models.DateTimeField(
         auto_now_add=True,
     )
@@ -71,9 +72,11 @@ class Profile(models.Model):
         blank=True,
     )
 
-    user = models.OneToOneField( # variable 'user' is need to the same way because it is reference with request.'user'
+    user = models.OneToOneField(  # variable 'user' is need to the same way because it is reference with request.'user'
         CarCostTrackerUser,
         on_delete=models.CASCADE,
         primary_key=True,
     )
 
+    def __str__(self):
+        return f'{self.first_name} {self.last_name}'
