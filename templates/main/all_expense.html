@@ -2,16 +2,10 @@
 {% load static %}
 {% block page_content %}
 <body style="background-image: url('{% static "aa.jpg" %}')">
-    {% if request.user.is_authenticated %}
-        {% if expenses %}
-            <h1 class='text-center' style="color: #ffffff">Your expenses: {{ all_expenses|floatformat:'2' }}€</h1>
-            <div class="col-md-12 text-center">
-                <a href="{% url 'create cost' %}" style="color: #ffffff"
-                   class="btn btn-lg btn-secondary row align-self-baseline">Create expense</a>
-            </div>
+        {% if all_expense_of_database %}
             <div class="container mb-5">
             <div class="row mb-5">
-                {% for expense in expenses %}
+                {% for expense in all_expense_of_database %}
                     <div class="col d-flex justify-content-center">
                         <div class="card" style="width: 18rem; margin: 10px">
                             {% if expense.car.photo %}
@@ -41,10 +35,6 @@
                                         Uploaded by {{ expense.user }}
                                     </h5>
                                 </div>
-                                <div class="text-center py-3 ">
-                                    <a href="{% url 'edit expense' expense.pk %}" class="btn btn-primary" style="width: 5rem">Edit</a>
-                                    <a href="{% url 'delete expense' expense.pk %}" class="btn btn-primary" style="width: 5rem">Delete</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -61,16 +51,10 @@
         {% else %}
 
             <h1 class='text-center' style="color: #ffffff">No register costs </h1>
-            <div class="col-md-12 text-center">
-                <a href="{% url 'create cost' %}" style="color: #ffffff"
-                   class="btn btn-lg btn-secondary row align-self-baseline">Create expense</a>
-            </div>
-            <div class=" row d-flex justify-content-center align-content-center">
 
-            </div>
 
         {% endif %}
-    {% endif %}
+
 
 </div>
 </body>

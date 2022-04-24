@@ -65,6 +65,23 @@ class Expense(models.Model):
         return self.part
 
 
+class Feedback(models.Model):
+    MAX_LEN_REQUESTER = 50
+    MAX_LEN_MESSAGE_TO = 50
+    requester = models.CharField(
+        max_length=MAX_LEN_REQUESTER,
+    )
+    to = models.CharField(
+        max_length=MAX_LEN_MESSAGE_TO,
+    )
+    message = models.TextField()
+
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+    )
+
+
 class Car(models.Model):
     AUTOMATIC_GEARBOX = 'Automatic gearbox'
     MANUAL_GEARBOX = 'Manual gearbox'
@@ -131,3 +148,5 @@ class Car(models.Model):
 
     def __str__(self):
         return self.make
+
+

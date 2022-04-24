@@ -5,7 +5,8 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, CreateView, DetailView, ListView, DeleteView, UpdateView
 
 from car_cost_tracker.accounts.models import CarCostTrackerUser
-from car_cost_tracker.main.forms import CreateExpenseForm, CreateVehicleForm, CreateEditExpenseForm, CreateCarEditForm
+from car_cost_tracker.main.forms import CreateExpenseForm, CreateVehicleForm, CreateEditExpenseForm, CreateCarEditForm, \
+    CreateFeedbackForm
 from car_cost_tracker.main.models import Expense, Car
 
 
@@ -14,7 +15,6 @@ class HomeView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['hide_nav'] = True
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -137,3 +137,18 @@ class DeleteCarView(DeleteView):
     # form_class = DeteleExpenseForm
     # context_object_name = 'expense'
     success_url = reverse_lazy('dashboard')
+
+class CreateFeedbackView(CreateView):
+    form_class = CreateFeedbackForm
+    template_name = 'main/feedback.html'
+    success_url = reverse_lazy('dashboard')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+class CreateListAllExpenseView(ListView):
+    model = Expense
+    template_name = 'main/all_expense.html'
+    context_object_name = 'all_expense_of_database'

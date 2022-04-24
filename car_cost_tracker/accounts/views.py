@@ -22,7 +22,7 @@ class UserRegisterView(CreateView):
 
 class UserLoginView(LoginView):
     template_name = 'accounts/login-page.html'
-    success_url = reverse_lazy('index view')
+    success_url = reverse_lazy('all expense')
 
 
     def get_success_url(self):

@@ -1,7 +1,8 @@
 from django.urls import path
 
 from car_cost_tracker.main.views import HomeView, CreateCostView, DashboardView, CreateCarView, \
-    CreateCarDetailView, DeleteExpenseView, EditExpenseView, EditCarView, DeleteCarView
+    CreateCarDetailView, DeleteExpenseView, EditExpenseView, EditCarView, DeleteCarView, CreateFeedbackView, \
+    CreateListAllExpenseView
 
 urlpatterns = (
     path('', HomeView.as_view(), name='index view'),
@@ -14,5 +15,7 @@ urlpatterns = (
     path('edit/expense/<int:pk>/', EditExpenseView.as_view(), name='edit expense'),
     path('edit/car/<int:pk>/', EditCarView.as_view(), name='edit car'),
     path('delete/car/<int:pk>/', DeleteCarView.as_view(), name='delete car'),
+    path('feedback/', CreateFeedbackView.as_view(), name='feedback'),
+    path('all/expense/', CreateListAllExpenseView.as_view(), name='all expense'),
 )
 

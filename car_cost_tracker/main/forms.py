@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import TextInput
 
-from car_cost_tracker.main.models import Expense, Car
+from car_cost_tracker.main.models import Expense, Car, Feedback
 
 
 # class DeteleExpenseForm(forms.ModelForm):
@@ -77,3 +77,38 @@ class CreateCarEditForm(forms.ModelForm):
     class Meta:
         model = Car
         exclude = ('user',)
+
+class CreateFeedbackForm(forms.ModelForm):
+
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.user = user
+
+    def save(self, commit=True):
+        feedback = super().save(commit=False)
+
+        feedback.user = self.user
+        if commit:
+            feedback.save()
+        return feedback
+
+    class Meta:
+        model = Feedback
+        fields = ('requester', 'to', 'message')
+        widgets = {
+            'requester': forms.TextInput(
+                attrs={
+                    'placeholder': 'Enter your username',
+                }
+            ),
+            'to': forms.TextInput(
+                attrs={
+                    'placeholder': 'VTRACK support',
+                }
+            ),
+            'message': forms.TextInput(
+                attrs={
+                    'placeholder': 'Enter your message',
+                }
+            ),
+        }
