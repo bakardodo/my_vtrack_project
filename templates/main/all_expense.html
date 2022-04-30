@@ -1,18 +1,18 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block page_content %}
-<body style="background-image: url('{% static "aa.jpg" %}')">
+<body style="background-image: url('{% static "old carr.jpg" %}')">
         {% if all_expense_of_database %}
             <div class="container mb-5">
             <div class="row mb-5">
                 {% for expense in all_expense_of_database %}
                     <div class="col d-flex justify-content-center">
-                        <div class="card" style="width: 18rem; margin: 10px">
+                        <div class="card" style="width: 18rem; margin: 10px;background-color: gray">
                             {% if expense.car.photo %}
-                                <img src="{{ expense.car.photo }}" class="card-img-top">
+                                <img src="{{ expense.car.photo }}" class="card-img-top" style="height: 10rem">
                             {% endif %}
                             <div class="text-center">
-                            <div class="card-body" style="background-color: gray;" >
+                            <div class="card-body" style="background-color: gray" >
                                 <div class="text-center">
                                     <h4 class="card-title">
                                         {{ expense.car.make }}

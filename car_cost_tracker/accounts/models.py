@@ -1,6 +1,7 @@
 
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.models import PermissionsMixin
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 # Create your models here.
@@ -8,7 +9,8 @@ from django.db import models
 # Create User(then user manager in managers.py) and Profile here
 from car_cost_tracker.accounts.managers import CarCostTrackerManager
 
-
+from car_cost_tracker.helpers import models_helpers
+from car_cost_tracker.helpers.models_helpers import only_letters
 
 
 class CarCostTrackerUser(AbstractBaseUser, PermissionsMixin):
@@ -36,6 +38,8 @@ class CarCostTrackerUser(AbstractBaseUser, PermissionsMixin):
 class Profile(models.Model):
     FIRST_NAME_MAX_LENGTH = 40
     LAST_NAME_MAX_LENGTH = 40
+    FIRST_NAME_MIN_LENGHT = 2
+    LAST_NAME_MIN_LENGTH = 2
 
     MALE = 'Male'
     FEMALE = 'Female'
@@ -45,10 +49,18 @@ class Profile(models.Model):
 
     first_name = models.CharField(
         max_length=FIRST_NAME_MAX_LENGTH,
+        validators=(
+            MinLengthValidator(FIRST_NAME_MIN_LENGHT),
+            only_letters,
+        )
     )
 
     last_name = models.CharField(
         max_length=LAST_NAME_MAX_LENGTH,
+        validators=(
+            MinLengthValidator(LAST_NAME_MIN_LENGTH),
+            only_letters,
+        )
     )
 
     picture = models.URLField(

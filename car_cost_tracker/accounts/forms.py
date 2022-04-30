@@ -1,17 +1,27 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from django.core.validators import MinLengthValidator
 
 from car_cost_tracker.accounts.models import Profile
+from car_cost_tracker.helpers.models_helpers import only_letters
 
 
 class CreateProfileForm(UserCreationForm):
 
     first_name = forms.CharField(
         max_length=Profile.FIRST_NAME_MAX_LENGTH,
+        validators=(
+            MinLengthValidator(Profile.FIRST_NAME_MIN_LENGHT),
+            only_letters,
+        )
     )
     last_name = forms.CharField(
         max_length=Profile.LAST_NAME_MAX_LENGTH,
+        validators=(
+            MinLengthValidator(Profile.LAST_NAME_MIN_LENGTH),
+            only_letters,
+        )
     )
     picture = forms.URLField()
     date_of_birth = forms.DateField()
