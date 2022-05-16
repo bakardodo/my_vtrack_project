@@ -111,4 +111,5 @@ class CreateFeedbackForm(forms.ModelForm):
                     'placeholder': 'Enter your message',
                 }
             ),
+
         }
