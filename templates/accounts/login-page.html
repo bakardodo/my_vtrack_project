@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block page_content %}
+    {% load static %}
+    {% load crispy_forms_filters %}
+
+    <body style="background-image: url('{% static "old carr.jpg" %}')">
+    <form method="post">
+        <div class="col d-flex justify-content-center">
+            <div class="card" style="width: 25rem; margin: 10px">
+                <div class="card-body" style="background-color: #c4ce5a;">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <button class="btn btn-primary mt-2" type="submit">Log in</button>
+                    or
+                    <a href="{% url 'create profile' %}">Register</a>
+
+                </div>
+            </div>
+        </div>
+    </form>
+    </body>
+
+{% endblock %}
+

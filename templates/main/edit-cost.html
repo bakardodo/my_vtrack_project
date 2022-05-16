@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% block page_content %}
+    <body style="background-image: url('{% static "3588944.jpg" %}')">
+    <div class="container mb-5 py-3">
+        <div class="row mb-5">
+            <div class="card" style="width: 22rem; margin: 10px;background-color: gray ">
+                <form method="post" action="{% url 'edit expense' expense.pk %}">
+                    {% if expense.car.photo %}
+                        <img src="{{ expense.car.photo }}" class="card-img-top">
+                    {% endif %}
+                    <h2 class="text-center py-3" style="font-style: italic">
+                        Edit expense
+                    </h2>
+                    <h3 class="text-center py-3" style="font-style: italic">
+                        {{ expense.car.make }}
+                    </h3>
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="text-center py-3">
+                        <button class="btn btn-primary mt-2" style="width: 5rem" type="submit">Edit</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

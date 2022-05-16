@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block page_content %}
+    <body style="background-image: url('{% static "old carr.jpg" %}')">
+    <div class="container mb-5 py-3">
+        <div class="row mb-5">
+
+            <div style="width: 50rem; margin: 40px;color: white">
+                <h1 style="font-style: italic">
+                    Best site to track all expense of your car
+                </h1>
+                <h1 style="font-style: italic">
+                    Compare with other drivers
+                </h1>
+                <h1 style="font-style: italic">
+                    Take care of your car
+                </h1>
+                <h1>
+                    <a href="{% url 'create profile' %}" class="btn btn-primary btn-lg" style="width: 10rem;background-color: dodgerblue">Register</a>
+                    <a href="{% url 'all expense' %}" class="btn btn-secondary btn-lg" style="width: 15rem;background-color: gray">See other expenses</a>
+                </h1>
+
+            </div>
+        </div>
+    </div>
+    </body>
+
+{% endblock %}

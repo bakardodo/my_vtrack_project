@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+    <body style="background-image: url('{% static 'old.jpg' %}')">
+    {% if cars %}
+        <h1 class='text-center' style="color: #ffffff; ">Your vehicles</h1>
+        <div class="col-md-12 text-center">
+            <a href="{% url 'create car' %}" style="color: #ffffff;background-color: gray"
+               class="btn btn-lg btn-secondary row align-self-baseline">Create vehicle</a>
+        </div>
+        <div class="container mb-5 py-3">
+        <div class="row mb-5">
+            {% for car in cars %}
+                <div class="col d-flex justify-content-center">
+                    <div class="card" style="width: 25rem; margin: 10px">
+                        <img src="{{ car.photo }}" class="card-img-top">
+                        <div class="card-body" style="background-color: gray;">
+                            <div class="text-center">
+                                <h5 class="card-title" style="font-size: 30px">{{ car.make }}</h5>
+                            </div>
+                            <div class="text-center" style="font-style: italic; font-size: 22px">
+                                Horse power:
+                                <p class="card-text">{{ car.horse_power }}</p>
+                                Cubic:
+                                <p class="card-text">{{ car.cubic }}</p>
+                                Vehicle condition:
+                                <p class="card-text">{{ car.vehicle_condition }}</p>
+                                Mileage:
+                                <p class="card-text">{{ car.mileage }}</p>
+                                {% if car.year %}
+                                    Year:
+                                    <p class="card-text">{{ car.year }}</p>
+                                {% endif %}
+                                Fuel type:
+                                <p class="card-text">{{ car.fuel_type }}</p>
+                                Transmission:
+                                <p class="card-text">{{ car.transmission }}</p>
+                            </div>
+                            <div class="text-center py-3">
+                                <a href="{% url 'edit car' car.pk %}" class="btn btn-primary" style="width: 5rem">Edit</a>
+                                <a href="{% url 'delete car' car.pk %}" class="btn btn-primary" style="width: 5rem">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+    {% else %}
+        <h1 class='text-center' style="color: #ffffff; ">No vehicles</h1>
+        <div class="col-md-12 text-center">
+            <a href="{% url 'create car' %}" style="color: #ffffff;background-color: gray"
+               class="btn btn-lg btn-secondary row align-self-baseline">Create vehicle</a>
+        </div>
+    {% endif %}
+    </body>
+
+{% endblock %}

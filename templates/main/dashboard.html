@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block page_content %}
+<body style="background-image: url('{% static "aa.jpg" %}')">
+    {% if request.user.is_authenticated %}
+        {% if expenses %}
+            <h1 class='text-center' style="color: #ffffff">Your expenses: {{ all_expenses|floatformat:'2' }}€</h1>
+            <div class="col-md-12 text-center">
+                <a href="{% url 'create cost' %}" style="color: #ffffff"
+                   class="btn btn-lg btn-secondary row align-self-baseline">Create expense</a>
+            </div>
+            <div class="container mb-5">
+            <div class="row mb-5">
+                {% for expense in expenses %}
+                    <div class="col d-flex justify-content-center">
+                        <div class="card" style="width: 18rem; margin: 10px;background-color: gray">
+                            {% if expense.car.photo %}
+                                <img src="{{ expense.car.photo }}" class="card-img-top" style="height: 10rem">
+                            {% endif %}
+                            <div class="text-center">
+                            <div class="card-body" style="background-color: gray;" >
+                                <div class="text-center">
+                                    <h4 class="card-title">
+                                        {{ expense.car.make }}
+                                    </h4>
+                                </div>
+                                <div class="text-center" style="font-style: italic;font-size: 22px" >
+                                    {{ expense.type }}:
+                                    <p class="card-text">{{ expense.part }}</p>
+                                    {% if expense.description %}
+                                        Description:
+                                        <p class="card-text">{{ expense.description }}</p>
+                                    {% endif %}
+                                    {% if expense.price %}
+                                        Price:
+                                        <p class="card-text">{{ expense.price|floatformat:'2' }}€</p>
+                                    {% endif %}
+                                    Date of purchase:
+                                    <p class="card-text">{{ expense.date_of_purchase }}</p>
+                                    <h5 class="card-title">
+                                        Uploaded by {{ expense.user }}
+                                    </h5>
+                                </div>
+                                <div class="text-center py-3 ">
+                                    <a href="{% url 'edit expense' expense.pk %}" class="btn btn-primary" style="width: 5rem">Edit</a>
+                                    <a href="{% url 'delete expense' expense.pk %}" class="btn btn-primary" style="width: 5rem">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                        </div>
+
+
+
+
+
+
+
+                {% endfor %}
+            </div>
+        {% else %}
+
+            <h1 class='text-center' style="color: #ffffff">No register costs </h1>
+            <div class="col-md-12 text-center">
+                <a href="{% url 'create cost' %}" style="color: #ffffff"
+                   class="btn btn-lg btn-secondary row align-self-baseline">Create expense</a>
+            </div>
+            <div class=" row d-flex justify-content-center align-content-center">
+
+            </div>
+
+        {% endif %}
+    {% endif %}
+
+</div>
+</body>
+{% endblock %}

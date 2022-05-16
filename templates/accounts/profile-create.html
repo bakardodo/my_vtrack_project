@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load crispy_forms_filters %}
+{% load static %}
+{% block page_content %}
+    <body style="background-image: url('{% static "3588944.jpg" %}')">
+    <div class="d-flex">
+        <div class="d-inline 5-2 w-50">
+
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="card" style="width: 25rem; margin: 10px">
+                            <img src="{{ car.photo }}" class="card-img-top">
+                            <div class="card-body" style="background-color: #c4ce5a;">
+                                <h2 class="text-center" style="font-style: italic">Create your profile</h2>
+
+                                {% csrf_token %}
+                                {{ form|crispy }}
+                                <div class="text-center">
+                                    <button class="btn btn-primary mt-2" type="submit">Create</button>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="col-lg-3"></div>
+            </div>
+        </div>
+    </div>
+    </body>
+
+{% endblock %}
